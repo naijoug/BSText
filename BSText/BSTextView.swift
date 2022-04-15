@@ -3406,13 +3406,8 @@ open class BSTextView: UIScrollView, UITextInput, UITextInputTraits, UIScrollVie
     }
     
     open override var canResignFirstResponder: Bool {
-        if !isFirstResponder {
-            return true
-        }
-        if let should = _outerDelegate?.textViewShouldEndEditing?(self) {
-            return !should
-        }
-        return true
+        guard isFirstResponder else { return true }
+        return _outerDelegate?.textViewShouldEndEditing?(self) ?? true
     }
     
     @discardableResult
