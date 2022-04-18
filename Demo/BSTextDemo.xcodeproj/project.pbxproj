@@ -44,6 +44,7 @@
 		32557FE0249E4325009F57F9 /* MyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32557FDF249E4325009F57F9 /* MyExample.swift */; };
 		AA6BBB3D6FE4996C5D548A02 /* Pods_BSTextDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5054A7D00FBF84BDFD3017C2 /* Pods_BSTextDemoTests.framework */; };
 		C70D65BAF91CCA8F4C3E7B0D /* Pods_BSTextDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8BD8EF203494111144A38E /* Pods_BSTextDemo.framework */; };
+		FB0BD7E2280CF39500A12B91 /* BSTextEdit2Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0BD7E1280CF39500A12B91 /* BSTextEdit2Example.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,7 @@
 		DD75291E6782662B28378F8A /* Pods-BSTextDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSTextDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-BSTextDemoUITests/Pods-BSTextDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB552C2702C5039614DA7878 /* Pods-BSTextDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSTextDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-BSTextDemoTests/Pods-BSTextDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8C67BE16A815536737DFFCD /* Pods-BSTextDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSTextDemoTests.release.xcconfig"; path = "Target Support Files/Pods-BSTextDemoTests/Pods-BSTextDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		FB0BD7E1280CF39500A12B91 /* BSTextEdit2Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSTextEdit2Example.swift; sourceTree = "<group>"; };
 		FCBE5C7A09245DCED8C99D28 /* Pods-BSTextDemo-BSTextDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSTextDemo-BSTextDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-BSTextDemo-BSTextDemoUITests/Pods-BSTextDemo-BSTextDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,6 +211,7 @@
 				322E393021F81687004AC265 /* BSTextTagExample.swift */,
 				322E393121F81687004AC265 /* BSTextAttachmentExample.swift */,
 				322E393521F81687004AC265 /* BSTextEditExample.swift */,
+				FB0BD7E1280CF39500A12B91 /* BSTextEdit2Example.swift */,
 				322E392F21F81687004AC265 /* BSTextMarkdownExample.swift */,
 				322E393221F81687004AC265 /* BSTextEmoticonExample.swift */,
 				322E393B21F81687004AC265 /* BSTextBindingExample.swift */,
@@ -541,6 +544,7 @@
 				322E395421F81687004AC265 /* BSTextAsyncExample.swift in Sources */,
 				322E395B21F81687004AC265 /* BundleExtension.swift in Sources */,
 				322E394E21F81687004AC265 /* BSTextEmoticonExample.swift in Sources */,
+				FB0BD7E2280CF39500A12B91 /* BSTextEdit2Example.swift in Sources */,
 				322E394F21F81687004AC265 /* BSTextCopyPasteExample.swift in Sources */,
 				322E395721F81687004AC265 /* BSTextBindingExample.swift in Sources */,
 				322E395821F81687004AC265 /* UIControlExtend.swift in Sources */,

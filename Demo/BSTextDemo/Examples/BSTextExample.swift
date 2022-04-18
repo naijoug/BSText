@@ -24,6 +24,7 @@ class BSTextExample: UITableViewController {
         addCell("Text Attributes 2", class: BSTextTagExample.self)
         addCell("Text Attachments", class: BSTextAttachmentExample.self)
         addCell("Text Edit", class: BSTextEditExample.self)
+        addCell("Text Edit 🐛", class: BSTextEdit2Example.self)
         addCell("Text Parser (Markdown)", class: BSTextMarkdownExample.self)
         addCell("Text Parser (Emoticon)", class: BSTextEmoticonExample.self)
         addCell("Text Binding", class: BSTextBindingExample.self)

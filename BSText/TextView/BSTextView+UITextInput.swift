@@ -58,7 +58,7 @@ extension BSTextView {
                 range = extendRange!.asRange
             }
         }
-        if !NSEqualRanges(_lastTypeRange!, _selectedTextRange.asRange) {
+        if let lastTypeRange = _lastTypeRange, !NSEqualRanges(lastTypeRange, _selectedTextRange.asRange) {
             _saveToUndoStack()
             _resetRedoStack()
         }
