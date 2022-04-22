@@ -9,10 +9,11 @@
 import UIKit
 import BSText
 import YYImage
+import Ext
 
 class BSTextEdit2Example: UIViewController, TextKeyboardObserver {
     
-    private var textView = BSTextView()
+    private var textView = DebugTextView()
     private var systemTextView: SystemTextView!
     private var customTextView: CustomTextView!
 
@@ -28,13 +29,11 @@ class BSTextEdit2Example: UIViewController, TextKeyboardObserver {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.edit(_:)))
         
         textView.font = UIFont.systemFont(ofSize: 17)
-        textView.delegate = self
         textView.placeholderText = "BSTextView"
         textView.frame = CGRect(x: 10, y: 100, width: view.frame.width - 20, height: 100)
         textView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         textView.textColor = .white
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        textView.delegate = self
         textView.keyboardDismissMode = UIScrollView.KeyboardDismissMode.interactive
         view.addSubview(textView)
         
@@ -47,9 +46,6 @@ class BSTextEdit2Example: UIViewController, TextKeyboardObserver {
         
         customTextView = CustomTextView(frame: CGRect(x: 10, y: systemTextView.frame.maxY + 20, width: view.frame.width - 20, height: 100))
         customTextView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-//        systemTextView.textColor = .white
-//        systemTextView.font = UIFont.systemFont(ofSize: 17)
-//        systemTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         view.addSubview(customTextView)
     }
     
@@ -57,12 +53,24 @@ class BSTextEdit2Example: UIViewController, TextKeyboardObserver {
     private func edit(_ item: UIBarButtonItem?) {
         textView.resignFirstResponder()
         systemTextView.resignFirstResponder()
+        customTextView.resignFirstResponder()
     }
 }
 
-// MARK: - BSTextViewDelegate
+// MARK: - Debug BSTextView
 
-extension BSTextEdit2Example: TextViewDelegate {
+private class DebugTextView: BSTextView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        delegate = self
+    }
+    @available(*, unavailable)
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+}
+extension DebugTextView: TextViewDelegate {
     
     func textView(_ textView: BSTextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         print("🏀 shouldChangeTextIn: | range: \(range) | text: \(text) \(textView.log)")
@@ -90,6 +98,48 @@ extension BSTextEdit2Example: TextViewDelegate {
         print("🏀 textViewDidEndEditing \(textView.log)")
     }
 }
+extension DebugTextView {
+    override func insertText(_ text: String) {
+        print("🏀 🚀 insertText | \(text) \(self.log)")
+        super.insertText(text)
+        print("🏀 👌🏻 insertText | \(text) \(self.log)\n------------")
+    }
+    override func deleteBackward() {
+        print("🏀 🛫 deleteBackward \(self.log)")
+        super.deleteBackward()
+        print("🏀 🛬 deleteBackward \(self.log)")
+    }
+    
+    override func text(in range: UITextRange) -> String? {
+        print("🏀 🛫 text(in range: \(self.log)")
+        let res = super.text(in: range)
+        print("🏀 🛬 text(in range: \(self.log)")
+        return res
+    }
+    
+    override func replace(_ range: UITextRange, withText text: String) {
+        print("🏀 🛫 replace range: \(range) | text: \(text) \(self.log)")
+        super.replace(range, withText: text)
+        print("🏀 🛬 replace range: \(range) | text: \(text) \(self.log)")
+    }
+    
+    override func textRange(from fromPosition: UITextPosition, to toPosition: UITextPosition) -> UITextRange? {
+        print("🏀 🛫 textRange(from: \(self.log)")
+        let res = super.textRange(from: fromPosition, to: toPosition)
+        print("🏀 🛬 textRange(from: \(self.log)")
+        return res
+    }
+    
+//    override func shouldChangeText(in range: UITextRange, replacementText text: String) -> Bool {
+//        print("🏀 🛫 shouldChangeText | range: \(range) | text: \(text) \(self.log)")
+//        let res = super.shouldChangeText(in: range, replacementText: text)
+//        print("🏀 🛬 shouldChangeText | range: \(range) | text: \(text) | res: \(res) \(self.log)")
+//        return res
+//    }
+}
+
+
+// MARK: - System UITextView
 
 private class SystemTextView: UITextView {
     
@@ -136,14 +186,9 @@ extension SystemTextView: UITextViewDelegate {
 // MARK: UIKeyInput
 extension SystemTextView {
     override func insertText(_ text: String) {
-        print("\n🍎 🚀 insertText | \(text) \(self.log)")
+        print("🍎 🚀 insertText | \(text) \(self.log)")
         super.insertText(text)
-        print("🍎 👌🏻 insertText | \(text) \(self.log)\n")
-    }
-    override func insertText(_ text: String, alternatives: [String], style: UITextAlternativeStyle) {
-        print("\n🍎 🚀 insertText | \(text) | alternatives: \(alternatives) | style: \(style) | \(self.log)")
-        super.insertText(text, alternatives: alternatives, style: style)
-        print("🍎 👌🏻 insertText | \(text) | alternatives: \(alternatives) | style: \(style) | \(self.log)")
+        print("🍎 👌🏻 insertText | \(text) \(self.log)\n------------")
     }
     override func deleteBackward() {
         print("🍎 🛫 deleteBackward \(self.log)")
@@ -169,34 +214,37 @@ extension SystemTextView {
         super.setMarkedText(markedText, selectedRange: selectedRange)
         print("🍎 🛬 setMarkedText | markedText: \(markedText ?? "") | selectedRange: \(selectedRange) \(self.log)")
     }
+    override func unmarkText() {
+        print("🍎 🛫 unmarkText \(self.log)")
+        super.unmarkText()
+        print("🍎 🛬 unmarkText \(self.log)")
+    }
     
     // Optional
     
     override func shouldChangeText(in range: UITextRange, replacementText text: String) -> Bool {
-        print("🍎 🛫 setMarkedText | range: \(range) | text: \(text) \(self.log)")
+        print("🍎 🛫 shouldChangeText | range: \(range) | text: \(text) \(self.log)")
         let res = super.shouldChangeText(in: range, replacementText: text)
-        print("🍎 🛬 setMarkedText | range: \(range) | text: \(text) | res: \(res) \(self.log)")
+        print("🍎 🛬 shouldChangeText | range: \(range) | text: \(text) | res: \(res) \(self.log)")
         return res
+    }
+    override func insertText(_ text: String, alternatives: [String], style: UITextAlternativeStyle) {
+        print("🍎 🚀 insertText | \(text) | alternatives: \(alternatives) | style: \(style) | \(self.log)")
+        super.insertText(text, alternatives: alternatives, style: style)
+        print("🍎 👌🏻 insertText | \(text) | alternatives: \(alternatives) | style: \(style) | \(self.log)")
     }
 }
 
-private extension BSTextView {
-    var log: String {
-        "【text: \(text) | selectedRange: \(selectedRange) | markedTextRange: \(String(describing: markedTextRange)) 】"
-    }
-}
 private extension UITextView {
     var log: String {
-        "【text: \(text ?? "") | selectedRange: \(selectedRange) | markedTextRange: \(String(describing: markedTextRange)) 】"
+        "【text: \(text ?? "") | hasText: \(hasText) | selectedRange: \(selectedRange) | selectedTextRange: \(String(describing: selectedTextRange)) | markedTextRange: \(String(describing: markedTextRange)) 】"
     }
 }
 private extension CustomTextView {
     var log: String {
-        "【input: \(input)】"
+        "【input: \(input) | hasText: \(hasText)】"
     }
 }
-
-
 
 // MARK: - Custom
 
@@ -236,15 +284,13 @@ class CustomTextView: UIControl {
     }
 }
 extension CustomTextView: UIKeyInput {
-    var hasText: Bool {
-        input.isEmpty == false
-    }
+    var hasText: Bool { !input.isEmpty }
 
     func insertText(_ text: String) {
-        print("\n🐒 🚀 insertText | \(text) \(self.log)")
+        print("🐒 🚀 insertText | \(text) \(self.log)")
         input += text
         setNeedsDisplay()
-        print("🐒 👌🏻 insertText | \(text) \(self.log)\n")
+        print("🐒 👌🏻 insertText | \(text) \(self.log)\n------------")
     }
 
     func deleteBackward() {

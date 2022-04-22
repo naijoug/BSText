@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '11.0'
 inhibit_all_warnings!
 
 target 'BSTextDemo' do
@@ -9,6 +9,7 @@ target 'BSTextDemo' do
 def common
     pod 'BSText', :path => "../BSText.podspec"
     pod 'YYWebImage'
+    pod 'Ext'
 end
 
   # Pods for BSTextDemo

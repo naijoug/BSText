@@ -32,7 +32,6 @@ import YYImage
 open class BSTextView: UIScrollView, UITextInput, UITextInputTraits, UIScrollViewDelegate, UIAlertViewDelegate, TextDebugTarget, TextKeyboardObserver, NSSecureCoding {
     
     public lazy var tokenizer: UITextInputTokenizer = UITextInputStringTokenizer(textInput: UITextView())
-    public var markedTextRange: UITextRange?
     
     @objc public static let textViewTextDidBeginEditingNotification = "TextViewTextDidBeginEditing"
     @objc public static let textViewTextDidChangeNotification = "TextViewTextDidChange"
@@ -857,7 +856,7 @@ open class BSTextView: UIScrollView, UITextInput, UITextInputTraits, UIScrollVie
     
     // MARK: - Public
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         tokenizer = UITextInputStringTokenizer(textInput: self)
@@ -1064,6 +1063,8 @@ open class BSTextView: UIScrollView, UITextInput, UITextInputTraits, UIScrollVie
             }
         }
     }
+    
+    public var markedTextRange: UITextRange?
     
     public var markedTextStyle: [NSAttributedString.Key : Any]?
     
