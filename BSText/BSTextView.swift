@@ -1144,23 +1144,24 @@ open class BSTextView: UIScrollView, UITextInput, UITextInputTraits, UIScrollVie
             container.size = bounds.size
             container.truncationType = TextTruncationType.end
             container.truncationToken = nil
-            let layout = TextLayout(container: container, text: placeholderAttributedText)!
-            let size: CGSize = layout.textBoundingSize
-            let needDraw: Bool = size.width > 1 && size.height > 1
-            if needDraw {
-                UIGraphicsBeginImageContextWithOptions(size, _: false, _: 0)
-                let context = UIGraphicsGetCurrentContext()
-                layout.draw(in: context, size: size, debug: debugOption)
-                let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                _placeHolderView.image = image
-                frame.size = image?.size ?? CGSize.zero
-                if container.isVerticalForm {
-                    frame.origin.x = bounds.size.width - (image?.size.width ?? 0)
-                } else {
-                    frame.origin = CGPoint.zero
+            if let layout = TextLayout(container: container, text: placeholderAttributedText) {
+                let size: CGSize = layout.textBoundingSize
+                let needDraw: Bool = size.width > 1 && size.height > 1
+                if needDraw {
+                    UIGraphicsBeginImageContextWithOptions(size, _: false, _: 0)
+                    let context = UIGraphicsGetCurrentContext()
+                    layout.draw(in: context, size: size, debug: debugOption)
+                    let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
+                    _placeHolderView.image = image
+                    frame.size = image?.size ?? CGSize.zero
+                    if container.isVerticalForm {
+                        frame.origin.x = bounds.size.width - (image?.size.width ?? 0)
+                    } else {
+                        frame.origin = CGPoint.zero
+                    }
+                    _placeHolderView.frame = frame
                 }
-                _placeHolderView.frame = frame
             }
         }
     }
